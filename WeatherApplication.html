@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+         
+            left: 600px;
+            display: inline-block;
+            position: absolute;
+            top: 100px;
+            height: 500px;
+            width: 400px;
+            background-color: blue;
+            color: white;
+            border-radius: 10px;
+
+        }
+        #as{
+            color: white;
+
+        }
+        #humid{
+            color: white;
+        }
+        button{position: relative;
+            display: inline-block;
+            border-radius: 3px;
+            border-color: white;
+            background-color: transparent;
+            color: white;
+            height: 30px;
+            width: fit-content;
+            left: 50px;
+        }
+        input{position: relative;
+            background-color: transparent;
+        display: inline;
+        height: 30px;
+        top: 0px;
+        border: 0px;
+        color: white;
+        left: 50px;
+        width: 50px;
+       
+          
+            
+            width: 250px;
+        }
+        .t{font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: bold;
+        font-size: xx-large;
+        text-align: center;
+
+        }
+        .h{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: bold;
+        font-size: xx-large;
+        text-align: center;
+        }
+        .c{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: bold;
+        font-size: xx-large;
+        text-align: center;
+        }
+        #name{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: bold;
+        font-size: xx-large;
+        text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">  
+<input type="text" id="sea" placeholder="Enter city Name"><button onclick="find()">search</button></input>
+
+<br><br><div id="name">--</div><br><br>
+    <div class="t">Temp <br><span id="as"> </span> <i>&degC</i></div><br>
+<div class="h">Humidity <br> <span id="humid"></span> <i>%</i></div><br>
+<div class="c">Wind speed <br><span id="wind"></span> <i>km/hr</i></div><br>
+</div>    
+    <script>
+       
+        var ans;
+        function find(){
+            var loca =document.getElementById('sea').value;
+         fetch(`http://api.weatherapi.com/v1/current.json?key=d3e2c62ac6104158aea75252230109&q=${loca}&aqi=no`, { method: 'GET' })
+        .then(response=>response.json())
+        .then(data=>{console.log(data);
+                ans= data;
+                document.getElementById("name").innerHTML=data.location.name;
+     
+                document.getElementById("as").innerHTML=data.current.temp_c;
+                document.getElementById("humid").innerHTML=data.current.humidity;
+                document.getElementById("wind").innerHTML=data.current.wind_kph;
+                
+                console.log(data.current.temp_c);
+                console.log(data.location.name);
+                console.log(data.location.country);
+           })
+        .catch(res=>alert("place not found"))   ;
+        }
+
+        
+        
+
+     
+       
+    </script>
+
+</body>
+
+</html>
